@@ -1,6 +1,36 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
+import { Link } from 'react-router-dom';
+import { Button } from 'flowbite-react';
+
 
 const Navbar = () => {
+  const { loginWithRedirect } = useAuth0();
+  const { logout } = useAuth0();
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  const logoutWithRedirect = () =>
+    logout({
+      returnTo: window.location.origin,
+    });
+
+  useEffect(() => {
+    // isAuthenticated && (
+      // <div>
+      //   <img src={user.picture} alt={user.name} />
+      //   <h2>{user.name}</h2>
+      //   <p>{user.email}</p>
+      // </div>
+      // console.log(user.name);
+      if(isAuthenticated) {
+        console.log('user login');
+      } else {
+        console.log('user logout')
+      }
+
+  },[user, isLoading, isAuthenticated])
+
+
   return (
     <div>
   <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
@@ -30,6 +60,32 @@ const Navbar = () => {
         <li>
           <a href="#_" className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
         </li>
+        {/* Login */}
+        <li>
+          {
+            // <Link onClick={() => loginWithRedirect()}>Log In</Link>
+            isAuthenticated && (
+              <a href="/loginuser" className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+              <Link onClick={() => logoutWithRedirect() } to='#' >Log Out </Link>
+ 
+              </a>
+            )
+          }
+          {
+            !isAuthenticated && (
+              <a href="/loginuser" className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+               
+              <Link onClick={() => loginWithRedirect()}>LogIn</Link>
+              </a>
+            )
+          }
+        </li> 
+        {/* logout */}
+        {/* <li>
+          <a href="/signoutuser" className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">{
+            <Link onClick={() => logoutWithRedirect() } to='#' >Log Out </Link>
+          }</a>
+        </li> */}
       </ul>
     </div>
   </div>
