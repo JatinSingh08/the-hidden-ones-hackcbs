@@ -4,6 +4,7 @@ import React from 'react'
 import Head from "../../Components/Home/Head/Head"
 import Navbar from '../../Components/Common/Navbar/Navbar'
 import Footer from '../../Components/Common/Footer/Footer'
+import Services from "../../Components/Home/Services/Services"
 // import Testimonials from '../../Components/Home/Testimonials/Testimonials'
 // import DoctorsProfile from '../../Components/DoctorsProfile/DoctorsProfile'
 import DoctorsCard from '../../Components/Home/DoctorsCard/DoctorsCard'
@@ -14,7 +15,8 @@ export default function Home() {
       <Navbar />
       {/* <Hero /> */}
       <Head />
-      {/* <DoctorsCard /> */}
+      <Services />
+      <DoctorsCard />
       {/* <Testimonials /> */}
       <Footer />
     </>
